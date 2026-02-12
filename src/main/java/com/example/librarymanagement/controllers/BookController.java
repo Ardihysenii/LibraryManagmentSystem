@@ -39,14 +39,14 @@ public class BookController {
     public String showAddForm(Model model) {
         model.addAttribute("book", new Book());
         model.addAttribute("authors", authorService.getAllAuthors());
-        return "Product/add";
+        return "product/add";
     }
 
     @PostMapping("/save")
     public String saveBook(@Valid @ModelAttribute("book") Book book, BindingResult result, Model model) {
         if (result.hasErrors()) {
             model.addAttribute("authors", authorService.getAllAuthors());
-            return "Product/add";
+            return "product/add";
         }
         bookService.saveBook(book);
         return "redirect:/books";
@@ -60,7 +60,7 @@ public class BookController {
         }
         model.addAttribute("book", book);
         model.addAttribute("authors", authorService.getAllAuthors());
-        return "Product/add";
+        return "product/add";
     }
 
     @GetMapping("/delete/{id}")

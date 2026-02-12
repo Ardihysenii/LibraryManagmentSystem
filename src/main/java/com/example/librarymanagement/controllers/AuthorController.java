@@ -34,13 +34,13 @@ public class AuthorController {
     @GetMapping("/add")
     public String showAddForm(Model model) {
         model.addAttribute("author", new Author());
-        return "Product/index";
+        return "product/index";
     }
 
     @PostMapping("/save")
     public String saveAuthor(@Valid @ModelAttribute("author") Author author, BindingResult result) {
         if (result.hasErrors()) {
-            return "Product/index";
+            return "product/index";
         }
         authorService.saveAuthor(author);
         return "redirect:/authors";
@@ -51,7 +51,7 @@ public class AuthorController {
         Author author = authorService.getAuthorById(id);
         if (author == null) return "redirect:/authors";
         model.addAttribute("author", author);
-        return "Product/index";
+        return "product/index";
     }
 
     @GetMapping("/delete/{id}")
