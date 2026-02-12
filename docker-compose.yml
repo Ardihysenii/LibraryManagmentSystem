@@ -1,0 +1,24 @@
+services:
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: library_db
+    ports:
+      - "1433:1433"
+    environment:
+      - ACCEPT_EULA=Y
+      - MSSQL_SA_PASSWORD=Project123..
+      - MSSQL_PID=Developer
+    restart: always
+
+  app:
+    build: .
+    container_name: library_app
+    ports:
+      - "8080:8080"
+    depends_on:
+      - sqlserver
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:sqlserver://sqlserver:1433;databaseName=LibraryManagmentSystem;trustServerCertificate=true
+      - SPRING_DATASOURCE_USERNAME=sa
+      - SPRING_DATASOURCE_PASSWORD=Project123..
+    restart: on-failure
